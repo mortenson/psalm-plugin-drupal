@@ -72,3 +72,15 @@ Feature: Psalm Plugin Drupal
       | TaintedSql            | Detected tainted SQL                               |
     And I see no other errors
     And I see exit code 2
+
+  Scenario: Translatable XSS
+    Given I have the following code
+      """
+      $foo = new \Drupal\Core\StringTranslation\TranslatableMarkup($_GET['input']);
+      """
+    When I run Psalm
+    Then I see these errors
+      | Type                   | Message                                           |
+      | TaintedHtml            | Detected tainted HTML                             |
+    And I see no other errors
+    And I see exit code 2
