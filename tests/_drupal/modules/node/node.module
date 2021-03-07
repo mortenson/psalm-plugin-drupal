@@ -1,0 +1,5 @@
+<?php
+
+function node_echo($data) {
+    echo (string) $data;
+}
