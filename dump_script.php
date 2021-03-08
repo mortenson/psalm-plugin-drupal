@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 use mortenson\PslamPluginDrupal\DumpKernel;
 
 $autoloader = require_once 'autoload.php';
+require __DIR__ . '/DumpKernel.php';
 
 FileCacheFactory::setConfiguration(['default' => ['class' => '\Drupal\Component\FileCache\NullFileCache']]);
 $request = Request::createFromGlobals();

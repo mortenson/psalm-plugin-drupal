@@ -28,12 +28,10 @@ class AcceptanceTester extends \Codeception\Actor
     }
 
     /**
-     * @Given I have Drupal installed
+     * @When I run Psalm in Drupal
      */
-    public function iHaveDrupalInstalled(): void
+    public function iRunPsalmInDrupal(): void
     {
-        $this->copyDir('tests/_drupal/modules', 'tests/_run/modules');
-        $this->copyDir('tests/_drupal/themes', 'tests/_run/themes');
-        $this->writeToFile('tests/_run/DrupalContainerDump.xml', file_get_contents('tests/_drupal/DrupalContainerDump.xml'));
+        $this->runPsalmIn('tests/_tmp/drupal');
     }
 }

@@ -9,7 +9,6 @@ Feature: Psalm Plugin Drupal
     <?php
 
     """
-    And I have empty composer.lock
     And I have the following config
     """
     <?xml version="1.0"?>
@@ -22,63 +21,52 @@ Feature: Psalm Plugin Drupal
             <extension name=".php" />
             <extension name=".module" />
             <extension name=".theme" />
+            <extension name=".inc" />
         </fileExtensions>
         <projectFiles>
-            <directory name="."/>
+            <directory name="../../_run"/>
         </projectFiles>
         <plugins>
+            <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin">
+                <containerXml>DrupalContainerDump.xml</containerXml>
+            </pluginClass>
             <pluginClass class="mortenson\PslamPluginDrupal\Plugin">
                 <containerXml>DrupalContainerDump.xml</containerXml>
             </pluginClass>
         </plugins>
     </psalm>
     """
-    And I have Drupal installed
 
-  Scenario: .module files loaded
+  Scenario: ContainerHandler works.
     Given I have the following code
       """
-      node_echo($_GET['input']);
+      \Drupal::service('database')->query($_GET['input']);
       """
-    When I run Psalm
-    Then I see these errors
-      | Type                   | Message                                           |
-      | TaintedHtml            | Detected tainted HTML                             |
-    And I see no other errors
-    And I see exit code 2
-
-  Scenario: .theme files loaded
-    Given I have the following code
-      """
-      bartik_echo($_GET['input']);
-      """
-    When I run Psalm
-    Then I see these errors
-      | Type                   | Message                                           |
-      | TaintedHtml            | Detected tainted HTML                             |
-    And I see no other errors
-    And I see exit code 2
-
-  Scenario: Database connection SQLi
-    Given I have the following code
-      """
-      class Select extends \Drupal\Core\Database\Connection {};
-      $connection = new Select();
-      $connection->query($_GET['input']);
-      """
-    When I run Psalm
+    When I run Psalm in Drupal
     Then I see these errors
       | Type                  | Message                                            |
       | TaintedSql            | Detected tainted SQL                               |
     And I see no other errors
     And I see exit code 2
 
-  Scenario: Translatable XSS
+  Scenario: Database connection SQLi
     Given I have the following code
       """
-      $foo = new \Drupal\Core\StringTranslation\TranslatableMarkup($_GET['input']);
+      \Drupal::database()->query($_GET['input']);
       """
-    When I run Psalm
+    When I run Psalm in Drupal
+    Then I see these errors
+      | Type                  | Message                                            |
+      | TaintedSql            | Detected tainted SQL                               |
+    And I see no other errors
+    And I see exit code 2
+
+  Scenario: Markup XSS
+    Given I have the following code
+      """
+      new \Drupal\Core\StringTranslation\TranslatableMarkup($_GET['input']);
+      """
+    When I run Psalm in Drupal
     Then I see these errors
       | Type                   | Message                                           |
       | TaintedHtml            | Detected tainted HTML                             |
