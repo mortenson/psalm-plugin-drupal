@@ -16,6 +16,61 @@ abstract class Connection {
 
 }
 
+namespace Drupal\Core\Database\Query;
+
+interface ConditionInterface {
+
+    /**
+     * @psalm-taint-sink sql $operator
+     */
+    public function condition($field, $value = NULL, $operator = '=');
+
+    /**
+     * @psalm-taint-sink sql $snippet
+     */
+    public function where($snippet, $args = []);
+
+}
+
+interface SelectInterface {
+
+    /**
+     * @psalm-taint-sink sql $condition
+     */
+    public function addJoin($type, $table, $alias = NULL, $condition = NULL, $arguments = []);
+
+    /**
+     * @psalm-taint-sink sql $expression
+     */
+    public function addExpression($type, $table, $alias = NULL, $condition = NULL, $arguments = []);
+
+    /**
+     * @psalm-taint-sink sql $condition
+     */
+    public function join($table, $alias = NULL, $condition = NULL, $arguments = []);
+
+    /**
+     * @psalm-taint-sink sql $condition
+     */
+    public function innerJoin($table, $alias = NULL, $condition = NULL, $arguments = []);
+
+    /**
+     * @psalm-taint-sink sql $condition
+     */
+    public function leftJoin($table, $alias = NULL, $condition = NULL, $arguments = []);
+
+    /**
+     * @psalm-taint-sink sql $snippet
+     */
+    public function having($snippet, $args = []);
+
+    /**
+     * @psalm-taint-sink sql $operator
+     */
+    public function havingCondition($field, $value = NULL, $operator = NULL);
+
+}
+
 namespace Drupal\Component\Render;
 
 class FormattableMarkup {

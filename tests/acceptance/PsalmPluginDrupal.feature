@@ -37,7 +37,7 @@ Feature: Psalm Plugin Drupal
     </psalm>
     """
 
-  Scenario: ContainerHandler works.
+  Scenario: ContainerHandler works
     Given I have the following code
       """
       \Drupal::service('database')->query($_GET['input']);
@@ -61,10 +61,48 @@ Feature: Psalm Plugin Drupal
     And I see no other errors
     And I see exit code 2
 
-  Scenario: Markup XSS
+  Scenario: Database condition SQLi
+    Given I have the following code
+      """
+      \Drupal::database()->select("node")->condition("title", "foo", $_GET['input']);
+      """
+    When I run Psalm in Drupal
+    Then I see these errors
+      | Type                  | Message                                            |
+      | TaintedSql            | Detected tainted SQL                               |
+    And I see no other errors
+    And I see exit code 2
+
+  Scenario: Markup constructor XSS
     Given I have the following code
       """
       new \Drupal\Core\StringTranslation\TranslatableMarkup($_GET['input']);
+      """
+    When I run Psalm in Drupal
+    Then I see these errors
+      | Type                   | Message                                           |
+      | TaintedHtml            | Detected tainted HTML                             |
+    And I see no other errors
+    And I see exit code 2
+
+  Scenario: MarkupTrait XSS
+    Given I have the following code
+      """
+      \Drupal\Core\Render\Markup::create($_GET['input']);
+      """
+    When I run Psalm in Drupal
+    Then I see these errors
+      | Type                   | Message                                           |
+      | TaintedHtml            | Detected tainted HTML                             |
+    And I see no other errors
+    And I see exit code 2
+
+  Scenario: Render array XSS
+    Given I have the following code
+      """
+      $build = [
+        '#children' => $_GET['input'],
+      ];
       """
     When I run Psalm in Drupal
     Then I see these errors
