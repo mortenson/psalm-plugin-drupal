@@ -97,16 +97,32 @@ Feature: Psalm Plugin Drupal
     And I see no other errors
     And I see exit code 2
 
-  Scenario: Render array XSS
+  # Scenario: Render array XSS
+  #   Given I have the following code
+  #     """
+  #     $build = [
+  #       '#children' => $_GET['input'],
+  #     ];
+  #     """
+  #   When I run Psalm in Drupal
+  #   Then I see these errors
+  #     | Type                   | Message                                           |
+  #     | TaintedHtml            | Detected tainted HTML                             |
+  #   And I see no other errors
+  #   And I see exit code 2
+
+  Scenario: Node field XSS
     Given I have the following code
       """
-      $build = [
-        '#children' => $_GET['input'],
-      ];
+      /** @var \Drupal\node\Entity\Node $node */
+      $node = \Drupal::entityTypeManager()->getStorage('node')->load(1);
+      echo $node->get('title')->value;
+      echo $node->title->value;
       """
     When I run Psalm in Drupal
     Then I see these errors
       | Type                   | Message                                           |
+      | TaintedHtml            | Detected tainted HTML                             |
       | TaintedHtml            | Detected tainted HTML                             |
     And I see no other errors
     And I see exit code 2
