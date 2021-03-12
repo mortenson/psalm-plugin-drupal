@@ -24,7 +24,7 @@ class AcceptanceTester extends \Codeception\Actor
      */
     public function iHaveEmptyComposerlock(): void
     {
-        $this->writeToFile('tests/_run/composer.lock', '{}');
+        $this->writeToFile('tests/_tmp/drupal/composer.lock', '{}');
     }
 
     /**

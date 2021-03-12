@@ -9,6 +9,7 @@ Feature: Psalm Plugin Drupal
     <?php
 
     """
+    And I have empty composer.lock
     And I have the following config
     """
     <?xml version="1.0"?>
@@ -30,7 +31,7 @@ Feature: Psalm Plugin Drupal
             <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin">
                 <containerXml>DrupalContainerDump.xml</containerXml>
             </pluginClass>
-            <pluginClass class="mortenson\PslamPluginDrupal\Plugin">
+            <pluginClass class="mortenson\PsalmPluginDrupal\Plugin">
                 <containerXml>DrupalContainerDump.xml</containerXml>
             </pluginClass>
         </plugins>

@@ -22,19 +22,17 @@
     },
     "extra": {
         "psalm": {
-            "pluginClass": "mortenson\\PslamPluginDrupal\\Plugin"
+            "pluginClass": "mortenson\\PsalmPluginDrupal\\Plugin"
         }
     },
     "autoload": {
         "psr-4": {
-            "mortenson\\PslamPluginDrupal\\": [
-                "."
-            ]
+            "mortenson\\PsalmPluginDrupal\\": "."
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "mortenson\\PslamPluginDrupal\\Tests\\": "tests"
+            "mortenson\\PsalmPluginDrupal\\Tests\\": "tests"
         }
     },
     "scripts": {

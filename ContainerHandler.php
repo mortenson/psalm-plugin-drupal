@@ -1,6 +1,6 @@
 <?php
 
-namespace mortenson\PslamPluginDrupal;
+namespace mortenson\PsalmPluginDrupal;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ClassConstFetch;

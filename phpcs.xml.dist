@@ -5,11 +5,9 @@
     <arg name="colors"/>
 
     <!-- Paths to check -->
-    <file>Plugin.php</file>
-    <file>Hooks.php</file>
-    <file>ContainerHandler.php</file>
-    <file>dump_script.php</file>
-    <file>DumpKernel.php</file>
+    <file>src</file>
+    <file>stubs</file>
+    <file>tests/_support</file>
 
     <!-- inherit rules from: -->
     <rule ref="PSR12"/>

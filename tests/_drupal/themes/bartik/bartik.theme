@@ -1,5 +1,0 @@
-<?php
-
-function bartik_echo($data) {
-    echo (string) $data;
-}
