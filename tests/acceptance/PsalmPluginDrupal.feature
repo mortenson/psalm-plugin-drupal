@@ -111,17 +111,36 @@ Feature: Psalm Plugin Drupal
   #   And I see no other errors
   #   And I see exit code 2
 
-  Scenario: Node field XSS
+  Scenario: Node field source
     Given I have the following code
       """
       /** @var \Drupal\node\Entity\Node $node */
       $node = \Drupal::entityTypeManager()->getStorage('node')->load(1);
       echo $node->get('title')->value;
       echo $node->title->value;
+      echo $node->getTitle();
       """
     When I run Psalm in Drupal
     Then I see these errors
       | Type                   | Message                                           |
+      | TaintedHtml            | Detected tainted HTML                             |
+      | TaintedHtml            | Detected tainted HTML                             |
+      | TaintedHtml            | Detected tainted HTML                             |
+    And I see no other errors
+    And I see exit code 2
+
+  Scenario: Form state source
+    Given I have the following code
+      """
+        $form_state = new \Drupal\Core\Form\FormState();
+        echo $form_state->getUserInput()['foo'];
+        echo $form_state->getValue('foo');
+        echo $form_state->getValues()['foo'];
+      """
+    When I run Psalm in Drupal
+    Then I see these errors
+      | Type                   | Message                                           |
+      | TaintedHtml            | Detected tainted HTML                             |
       | TaintedHtml            | Detected tainted HTML                             |
       | TaintedHtml            | Detected tainted HTML                             |
     And I see no other errors
