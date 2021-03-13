@@ -122,14 +122,14 @@ Feature: Psalm Plugin Drupal
       $node = \Drupal::entityTypeManager()->getStorage('node')->load(1);
       echo $node->get('title')->value;
       echo $node->title->value;
-      # echo $node->getTitle();
+      echo $node->getTitle();
       """
     When I run Psalm in Drupal
     Then I see these errors
       | Type                   | Message                                           |
       | TaintedHtml            | Detected tainted HTML                             |
       | TaintedHtml            | Detected tainted HTML                             |
-      # | TaintedHtml            | Detected tainted HTML                             |
+      | TaintedHtml            | Detected tainted HTML                             |
     And I see no other errors
     And I see exit code 2
 

@@ -23,6 +23,7 @@ class RenderArrayTainter implements AfterExpressionAnalysisInterface
         Codebase $codebase,
         array &$file_replacements = []
     ): ?bool {
+        return null;
         if ($expr instanceof Node\Expr\Array_) {
             /** @var ArrayItem $item */
             foreach ($expr->items as $item) {

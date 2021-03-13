@@ -29,6 +29,19 @@ interface FieldableEntityInterface {
 
 }
 
+// @todo Why is this needed?
+
+namespace Drupal\node\Entity;
+
+class Node {
+
+  /**
+   * @psalm-taint-source input
+   */
+  public function getTitle() {}
+
+}
+
 namespace Drupal\Core\Form;
 
 interface FormStateInterface {
