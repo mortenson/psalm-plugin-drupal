@@ -29,28 +29,7 @@ interface FieldableEntityInterface {
 
 }
 
-// @todo Figure out why this doesn't work without stub.
-
-namespace Drupal\node\Entity;
-
-use Drupal\Core\Field\FieldItemListInterface;
-
-class Node {
-
-    /**
-     * @return FieldItemListInterface
-     */
-    public function __get($property_name) {}
-  
-    /**
-     * @return FieldItemListInterface
-     */
-    public function get($property_name) {}
-
-}
-
 namespace Drupal\Core\Form;
-
 
 interface FormStateInterface {
 

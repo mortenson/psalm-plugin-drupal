@@ -16,6 +16,7 @@ Feature: Psalm Plugin Drupal
       errorLevel="6"
       resolveFromConfigFile="true"
       runTaintAnalysis="true"
+      autoloader="../../../scripts/autoload.php"
     >
         <fileExtensions>
             <extension name=".php" />
@@ -32,6 +33,9 @@ Feature: Psalm Plugin Drupal
             </pluginClass>
             <pluginClass class="mortenson\PsalmPluginDrupal\Plugin">
                 <containerXml>DrupalContainerDump.xml</containerXml>
+                <extensions>
+                  <module name="node" />
+                </extensions>
             </pluginClass>
         </plugins>
     </psalm>

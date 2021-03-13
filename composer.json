@@ -39,6 +39,7 @@
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "test": "./pretest.sh && ./vendor/bin/codecept run -v",
+        "test-failing": "./pretest.sh && ./vendor/bin/codecept run -v --group failing",
         "test-clean": "rm -rf ./tests/_tmp"
     }
 }

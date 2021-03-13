@@ -12,4 +12,4 @@ wget https://ftp.drupal.org/files/projects/drupal-9.1.5.tar.gz
 tar -xf drupal-9.1.5.tar.gz
 mv drupal-9.1.5 drupal
 cd drupal
-php ../../../scripts/dump_script.php
+php ../../../scripts/dump_script.php node
