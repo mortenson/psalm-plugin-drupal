@@ -9,6 +9,7 @@ analysis.
 - Loading of `.module` and `.theme` files
 - Autoloading of modules without an installed site
 - Support for `\Drupal::service()`
+- Custom script for dumping the Drupal container to XML
 
 ## Installing and running on your Drupal site
 
@@ -45,6 +46,7 @@ To install the plugin:
         <pluginClass class="mortenson\PsalmPluginDrupal\Plugin">
             <containerXml>DrupalContainerDump.xml</containerXml>
             <extensions>
+              <!-- List your modules explicitly here, as the scan may happen without a database -->
               <module name="my_custom_module" />
               <module name="my_module_dependency" />
             </extensions>
