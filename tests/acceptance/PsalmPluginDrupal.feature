@@ -26,6 +26,7 @@ Feature: Psalm Plugin Drupal
         </fileExtensions>
         <projectFiles>
             <directory name="../../_run"/>
+            <file name="psalm_drupal_entrypoint.module"></file>
         </projectFiles>
         <plugins>
             <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin">
@@ -128,6 +129,89 @@ Feature: Psalm Plugin Drupal
     When I run Psalm in Drupal
     Then I see no other errors
     And I see exit code 0
+
+  Scenario: Render array from controller
+    Given I have the following code in "my_module.routing.yml"
+      """
+      my_module.page:
+        path: '/my-module'
+        defaults:
+          _controller: '\Drupal\my_module\Controller\MyController::build'
+      my_module.page_response:
+        path: '/my-module-response'
+        defaults:
+          _controller: '\Drupal\my_module\Controller\MyController::buildResponse'
+      """
+    Given I have the following code
+      """
+      namespace Drupal\my_module\Controller;
+
+      use Symfony\Component\HttpFoundation\Response;
+      use Drupal\Core\Controller\ControllerBase;
+
+      class MyController extends ControllerBase {
+
+        /**
+         * @return array
+         */
+        public function build() {
+          return [
+            '#markup' => $_GET['input'],
+            '#template' => $_GET['input'],
+          ];
+        }
+
+        /**
+         * @return \Symfony\Component\HttpFoundation\Response
+         */
+        public function buildResponse() {
+          return new Response('');
+        }
+
+      }
+      """
+    When I run Psalm in Drupal
+    Then I see these errors
+      | Type                   | Message                                           |
+      | TaintedHtml            | Detected tainted HTML                             |
+    And I see no other errors
+    And I see exit code 2
+
+  Scenario: Render array from form
+    Given I have the following code in "my_module.routing.yml"
+      """
+      my_module.form:
+        path: '/my-module-form'
+        defaults:
+          _form: '\Drupal\my_module\Form\MyForm'
+      """
+    Given I have the following code
+      """
+      namespace Drupal\my_module\Form;
+
+      use Symfony\Component\HttpFoundation\Response;
+      use Drupal\Core\Form\FormBase;
+
+      class MyForm extends FormBase {
+
+        /**
+         * @return array
+         */
+        public function buildForm() {
+          return [
+            '#markup' => $_GET['input'],
+            '#template' => $_GET['input'],
+          ];
+        }
+
+      }
+      """
+    When I run Psalm in Drupal
+    Then I see these errors
+      | Type                   | Message                                           |
+      | TaintedHtml            | Detected tainted HTML                             |
+    And I see no other errors
+    And I see exit code 2
 
   Scenario: Node field source
     Given I have the following code

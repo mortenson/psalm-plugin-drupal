@@ -11,6 +11,7 @@ analysis.
 - Support for `\Drupal::service()`
 - Custom script for dumping the Drupal container to XML
 - Support for detecting tainted render arrays
+- Novel support for Controllers and Form methods.
 
 ## Installing and running on your Drupal site
 
@@ -56,6 +57,26 @@ To install the plugin:
 </psalm>
 ```
 3. Run `php ./vendor/mortenson/psalm-plugin-drupal/scripts/dump_script.php && ./vendor/bin/psalm .`
+
+### Generating an entrypoint for seemingly unused class methods
+
+Drupal's code paths aren't always clear, especially in Drupal 8. Because of
+this, things like Controller methods (aka route callbacks) will not be
+analyzed when running Psalm.
+
+To have Psalm analyze these paths, you'll need to generate an entrypoint file
+that executes the methods you want to test.
+
+A script has been included for you to generate this entrypoint for you. To use
+it, do the following:
+
+1. Run `php ./vendor/mortenson/psalm-plugin-drupal/scripts/generate_entrypoint.php <comma separated paths to your custom modules>`
+2. Add `<file name="psalm_drupal_entrypoint.module"></file>` to your
+`psalm.xml` file, under the `<projectFiles>` node.
+3. Run Psalm.
+
+Currently, only `routing.yml` files are parsed to generate the entrypoint,
+focusing on Controller and Form methods.
 
 ## Contributing
 

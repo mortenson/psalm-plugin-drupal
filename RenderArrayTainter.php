@@ -9,7 +9,6 @@ use Psalm\Plugin\EventHandler\RemoveTaintsInterface;
 
 class RenderArrayTainter implements RemoveTaintsInterface
 {
-
     public static function removeTaints(AddRemoveTaintsEvent $event): array
     {
         $item = $event->getExpr();
