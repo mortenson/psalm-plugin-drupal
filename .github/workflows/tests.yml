@@ -2,17 +2,22 @@ name: PHP Composer
 
 on:
   push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
+  test:
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+          php-version: '7.4'
+          tools: composer:v2
+          coverage: none
+      env:
+          fail-fast: true
 
     - name: Cache Composer packages
       id: composer-cache
