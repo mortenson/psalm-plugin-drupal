@@ -108,8 +108,8 @@ This repo is licensed as LGPL 2.1 under the Commons Clause. This means the
 source is available, but it can't be resold without my (Samuel Mortenson's)
 permission. I haven't licensed things this way before, but know that Security
 projects are often quickly turned into products. I want this to be free for all
-Drupal users and not turned into some "premium" SAST nonsense. If you are
-have questions about the license or think you have a legitimate case to resell,
+Drupal users and not turned into some "premium" SAST product. If you have
+questions about the license or think you have a legitimate case to resell,
 contact me (my email is linked at https://mortenson.coffee).
 
 [weirdan/codeception-psalm-module]: https://github.com/weirdan/codeception-psalm-module
