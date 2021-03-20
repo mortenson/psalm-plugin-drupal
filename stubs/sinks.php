@@ -115,3 +115,53 @@ trait MarkupTrait {
     public static function create($string) {}
 
 }
+
+namespace Drupal\Core\Render;
+
+class Renderer {
+
+    /**
+     * @psalm-taint-sink html $elements
+     */
+    public function renderRoot(&$elements) {}
+
+    /**
+     * @psalm-taint-sink html $elements
+     */
+    public function renderPlain(&$elements) {}
+
+    /**
+     * @psalm-taint-sink html $elements
+     */
+    public function renderPlaceholder($placeholder, array $elements) {}
+
+    /**
+     * @psalm-taint-sink html $elements
+     */
+    public function render(&$elements, $is_root_call = FALSE) {}
+
+}
+
+interface RendererInterface {
+
+    /**
+     * @psalm-taint-sink html $elements
+     */
+    public function renderRoot(&$elements);
+
+    /**
+     * @psalm-taint-sink html $elements
+     */
+    public function renderPlain(&$elements);
+
+    /**
+     * @psalm-taint-sink html $elements
+     */
+    public function renderPlaceholder($placeholder, array $elements);
+
+    /**
+     * @psalm-taint-sink html $elements
+     */
+    public function render(&$elements, $is_root_call = FALSE);
+
+}

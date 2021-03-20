@@ -10,6 +10,7 @@ analysis.
 - Autoloading of modules without an installed site
 - Support for `\Drupal::service()`
 - Custom script for dumping the Drupal container to XML
+- Support for detecting tainted render arrays
 
 ## Installing and running on your Drupal site
 

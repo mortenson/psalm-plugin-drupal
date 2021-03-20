@@ -101,19 +101,33 @@ Feature: Psalm Plugin Drupal
     And I see no other errors
     And I see exit code 2
 
-  # Scenario: Render array XSS
-  #   Given I have the following code
-  #     """
-  #     $build = [
-  #       '#children' => $_GET['input'],
-  #     ];
-  #     """
-  #   When I run Psalm in Drupal
-  #   Then I see these errors
-  #     | Type                   | Message                                           |
-  #     | TaintedHtml            | Detected tainted HTML                             |
-  #   And I see no other errors
-  #   And I see exit code 2
+  Scenario: Render array bad keys
+    Given I have the following code
+      """
+      $build = [
+        '#markup' => $_GET['input'],
+        '#template' => $_GET['input'],
+      ];
+      \Drupal::service('renderer')->render($build);
+      """
+    When I run Psalm in Drupal
+    Then I see these errors
+      | Type                   | Message                                           |
+      | TaintedHtml            | Detected tainted HTML                             |
+    And I see no other errors
+    And I see exit code 2
+
+  Scenario: Render array safe keys
+    Given I have the following code
+      """
+      $build = [
+        '#markup' => $_GET['input'],
+      ];
+      \Drupal::service('renderer')->render($build);
+      """
+    When I run Psalm in Drupal
+    Then I see no other errors
+    And I see exit code 0
 
   Scenario: Node field source
     Given I have the following code

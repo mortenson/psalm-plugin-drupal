@@ -7,6 +7,7 @@
     <!-- Paths to check -->
     <file>Plugin.php</file>
     <file>ContainerHandler.php</file>
+    <file>RenderArrayTainter.php</file>
 
     <!-- inherit rules from: -->
     <rule ref="PSR12"/>
