@@ -49,7 +49,7 @@ class RenderArrayTainter implements RemoveTaintsInterface
             '#children',
         ];
 
-        if (!in_array($item_key_value, $dangerous_keys, true)) {
+        if ($item_key_value[0] === '#' && !in_array($item_key_value, $dangerous_keys, true)) {
             // We could/should use a custom taint type here.
             return ['html'];
         }
