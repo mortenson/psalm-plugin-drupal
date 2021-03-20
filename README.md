@@ -1,3 +1,5 @@
+![Test Status](https://github.com/mortenson/psalm-plugin-drupal/actions/workflows/tests.yml/badge.svg)
+
 # psalm-plugin-drupal
 
 A Drupal integration for Psalm focused on security scanning (SAST) taint
