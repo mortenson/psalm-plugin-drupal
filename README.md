@@ -23,14 +23,15 @@ Team.
 To install the plugin:
 
 1. Run `composer require mortenson/psalm-plugin-drupal:*`
-2. Create a `psalm.xml` file in the root of your Drupal installation like:
+2. Change directories to the root of your Drupal installation (ex: `cd web`, `cd docroot`).
+3. Create a `psalm.xml` file in the root of your Drupal installation like:
 ```xml
 <?xml version="1.0"?>
 <psalm
   errorLevel="6"
   resolveFromConfigFile="true"
   runTaintAnalysis="true"
-  autoloader="./vendor/mortenson/psalm-plugin-drupal/scripts/autoload.php"
+  autoloader="../vendor/mortenson/psalm-plugin-drupal/scripts/autoload.php"
 >
     <fileExtensions>
         <extension name=".php" />
@@ -56,7 +57,9 @@ To install the plugin:
     </plugins>
 </psalm>
 ```
-3. Run `php ./vendor/mortenson/psalm-plugin-drupal/scripts/dump_script.php && ./vendor/bin/psalm .`
+4. Run `php ../vendor/mortenson/psalm-plugin-drupal/scripts/dump_script.php && ../vendor/bin/psalm .`
+
+Note that the path to `vendor` may change based on your Drupal installation.
 
 ### Generating an entrypoint for seemingly unused class methods
 
@@ -70,7 +73,7 @@ that executes the methods you want to test.
 A script has been included for you to generate this entrypoint for you. To use
 it, do the following:
 
-1. Run `php ./vendor/mortenson/psalm-plugin-drupal/scripts/generate_entrypoint.php <comma separated paths to your custom modules>`
+1. Run `php ../vendor/mortenson/psalm-plugin-drupal/scripts/generate_entrypoint.php <comma separated paths to your custom modules>`
 2. Add `<file name="psalm_drupal_entrypoint.module"></file>` to your
 `psalm.xml` file, under the `<projectFiles>` node.
 3. Run Psalm.
