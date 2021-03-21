@@ -10,10 +10,12 @@
     <file>RenderArrayTainter.php</file>
     <file>scripts</file>
     <file>tests/_support</file>
+    <file>stubs</file>
 
     <!-- inherit rules from: -->
     <rule ref="PSR12">
         <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+        <exclude name="PSR1.Classes.ClassDeclaration.MultipleClasses"/>
     </rule>
 
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>

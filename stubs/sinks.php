@@ -2,62 +2,67 @@
 
 namespace Drupal\Core\Database;
 
-abstract class Connection {
+abstract class Connection
+{
 
     /**
      * @psalm-taint-sink sql $query
      */
-    public function query($query, array $args = [], $options = []) {}
+    public function query($query, array $args = [], $options = [])
+    {
+    }
 
     /**
      * @psalm-taint-sink sql $conjunction
      */
-    public function condition($conjunction) {}
-
+    public function condition($conjunction)
+    {
+    }
 }
 
 namespace Drupal\Core\Database\Query;
 
-interface ConditionInterface {
+interface ConditionInterface
+{
 
     /**
      * @psalm-taint-sink sql $operator
      */
-    public function condition($field, $value = NULL, $operator = '=');
+    public function condition($field, $value = null, $operator = '=');
 
     /**
      * @psalm-taint-sink sql $snippet
      */
     public function where($snippet, $args = []);
-
 }
 
-interface SelectInterface {
+interface SelectInterface
+{
 
     /**
      * @psalm-taint-sink sql $condition
      */
-    public function addJoin($type, $table, $alias = NULL, $condition = NULL, $arguments = []);
+    public function addJoin($type, $table, $alias = null, $condition = null, $arguments = []);
 
     /**
      * @psalm-taint-sink sql $expression
      */
-    public function addExpression($type, $table, $alias = NULL, $condition = NULL, $arguments = []);
+    public function addExpression($type, $table, $alias = null, $condition = null, $arguments = []);
 
     /**
      * @psalm-taint-sink sql $condition
      */
-    public function join($table, $alias = NULL, $condition = NULL, $arguments = []);
+    public function join($table, $alias = null, $condition = null, $arguments = []);
 
     /**
      * @psalm-taint-sink sql $condition
      */
-    public function innerJoin($table, $alias = NULL, $condition = NULL, $arguments = []);
+    public function innerJoin($table, $alias = null, $condition = null, $arguments = []);
 
     /**
      * @psalm-taint-sink sql $condition
      */
-    public function leftJoin($table, $alias = NULL, $condition = NULL, $arguments = []);
+    public function leftJoin($table, $alias = null, $condition = null, $arguments = []);
 
     /**
      * @psalm-taint-sink sql $snippet
@@ -67,82 +72,104 @@ interface SelectInterface {
     /**
      * @psalm-taint-sink sql $operator
      */
-    public function havingCondition($field, $value = NULL, $operator = NULL);
-
+    public function havingCondition($field, $value = null, $operator = null);
 }
 
 namespace Drupal\Component\Render;
 
-class FormattableMarkup {
+class FormattableMarkup
+{
 
     /**
       * @psalm-taint-sink html $string
       */
-    public function __construct($string, array $arguments) {}
-
+    public function __construct($string, array $arguments)
+    {
+    }
 }
 
 namespace Drupal\Core\StringTranslation;
 
-class TranslatableMarkup {
+class TranslatableMarkup
+{
 
     /**
      * @psalm-taint-sink html $string
      */
-    public function __construct($string, array $arguments = [], array $options = [], $string_translation = NULL) {}
-
+    public function __construct($string, array $arguments = [], array $options = [], $string_translation = null)
+    {
+    }
 }
 
 namespace Drupal\Core\StringTranslation;
 
-class PluralTranslatableMarkup {
+class PluralTranslatableMarkup
+{
 
     /**
      * @psalm-taint-sink html $singular
      * @psalm-taint-sink html $plural
      */
-    public function __construct($count, $singular, $plural, array $args = [], array $options = [], $string_translation = NULL) {}
-
+    public function __construct(
+        $count,
+        $singular,
+        $plural,
+        array $args = [],
+        array $options = [],
+        $string_translation = null
+    ) {
+    }
 }
 
 namespace Drupal\Component\Render;
 
-trait MarkupTrait {
+trait MarkupTrait
+{
 
     /**
      * @psalm-taint-sink html $string
      */
-    public static function create($string) {}
-
+    public static function create($string)
+    {
+    }
 }
 
 namespace Drupal\Core\Render;
 
-class Renderer {
+class Renderer
+{
 
     /**
      * @psalm-taint-sink html $elements
      */
-    public function renderRoot(&$elements) {}
+    public function renderRoot(&$elements)
+    {
+    }
 
     /**
      * @psalm-taint-sink html $elements
      */
-    public function renderPlain(&$elements) {}
+    public function renderPlain(&$elements)
+    {
+    }
 
     /**
      * @psalm-taint-sink html $elements
      */
-    public function renderPlaceholder($placeholder, array $elements) {}
+    public function renderPlaceholder($placeholder, array $elements)
+    {
+    }
 
     /**
      * @psalm-taint-sink html $elements
      */
-    public function render(&$elements, $is_root_call = FALSE) {}
-
+    public function render(&$elements, $is_root_call = false)
+    {
+    }
 }
 
-interface RendererInterface {
+interface RendererInterface
+{
 
     /**
      * @psalm-taint-sink html $elements
@@ -162,6 +189,5 @@ interface RendererInterface {
     /**
      * @psalm-taint-sink html $elements
      */
-    public function render(&$elements, $is_root_call = FALSE);
-
+    public function render(&$elements, $is_root_call = false);
 }

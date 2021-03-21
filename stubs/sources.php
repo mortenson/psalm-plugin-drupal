@@ -2,94 +2,102 @@
 
 namespace Drupal\Core\Field;
 
-interface FieldItemListInterface {
+interface FieldItemListInterface
+{
 
   /**
    * @psalm-taint-source input
    */
-  public function __get($property_name) : string;
-
+    public function __get($property_name): string;
 }
 
 namespace Drupal\Core\Entity;
 
 use Drupal\Core\Field\FieldItemListInterface;
 
-interface FieldableEntityInterface {
+interface FieldableEntityInterface
+{
 
     /**
      * @return FieldItemListInterface
      */
     public function __get($property_name);
-  
+
     /**
      * @return FieldItemListInterface
      */
     public function get($property_name);
-
 }
 
 // @todo Why is this needed?
 
 namespace Drupal\node\Entity;
 
-class Node {
+class Node
+{
 
   /**
    * @psalm-taint-source input
    */
-  public function getTitle() {}
-
+    public function getTitle()
+    {
+    }
 }
 
 namespace Drupal\Core\Form;
 
-interface FormStateInterface {
+interface FormStateInterface
+{
 
   /**
    * @psalm-taint-source input
    *
    * @return array
    */
-  public function &getUserInput();
+    public function &getUserInput();
 
   /**
    * @psalm-taint-source input
-   * 
+   *
    * @return array
    */
-  public function &getValues();
+    public function &getValues();
 
   /**
    * @psalm-taint-source input
-   * 
+   *
    * @return mixed
    */
-  public function &getValue($key, $default = NULL);
-
+    public function &getValue($key, $default = null);
 }
 
-class FormState {
+class FormState
+{
 
   /**
    * @psalm-taint-source input
    *
    * @return array
    */
-  public function &getUserInput() {}
+    public function &getUserInput()
+    {
+    }
 
   /**
    * @psalm-taint-source input
-   * 
+   *
    * @return array
    */
-  public function &getValues() {}
+    public function &getValues()
+    {
+    }
 
   /**
    * @psalm-taint-source input
-   * 
+   *
    * @return mixed
    */
-  public function &getValue($key, $default = NULL) {}
-
+    public function &getValue($key, $default = null)
+    {
+    }
 }
