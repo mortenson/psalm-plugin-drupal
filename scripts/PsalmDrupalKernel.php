@@ -42,5 +42,4 @@ class PsalmDrupalKernel extends DrupalKernel
         $dump = $dumper->dump();
         file_put_contents('./DrupalContainerDump.xml', $dump);
     }
-
 }

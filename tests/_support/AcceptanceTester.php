@@ -32,8 +32,9 @@ class AcceptanceTester extends \Codeception\Actor
      */
     public function iRunPsalmInDrupal(): void
     {
-        $this->runShellCommand('cd tests/_tmp/drupal && php ../../../scripts/generate_entrypoint.php ../../../tests/_run');
+        $this->runShellCommand(
+            'cd tests/_tmp/drupal && php ../../../scripts/generate_entrypoint.php ../../../tests/_run'
+        );
         $this->runPsalmIn('tests/_tmp/drupal');
     }
-
 }

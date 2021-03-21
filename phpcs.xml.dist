@@ -8,9 +8,13 @@
     <file>Plugin.php</file>
     <file>ContainerHandler.php</file>
     <file>RenderArrayTainter.php</file>
+    <file>scripts</file>
+    <file>tests/_support</file>
 
     <!-- inherit rules from: -->
-    <rule ref="PSR12"/>
+    <rule ref="PSR12">
+        <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
+    </rule>
 
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
     <rule ref="Generic.Files.ByteOrderMark"/>
