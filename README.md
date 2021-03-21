@@ -24,7 +24,7 @@ Team.
 
 To install the plugin:
 
-1. Run `composer require mortenson/psalm-plugin-drupal:*`
+1. Run `composer require mortenson/psalm-plugin-drupal:dev-master`
 2. Change directories to the root of your Drupal installation (ex: `cd web`, `cd docroot`).
 3. Create a `psalm.xml` file in the root of your Drupal installation like:
 ```xml
