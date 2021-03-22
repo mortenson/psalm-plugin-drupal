@@ -1,6 +1,6 @@
 {
     "name": "mortenson/psalm-plugin-drupal",
-    "description": "Template to create psalm-plugin projects from",
+    "description": "Psalm support for Drupal security analysis.",
     "type": "psalm-plugin",
     "authors": [
         {
