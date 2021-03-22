@@ -2,6 +2,7 @@
     "name": "mortenson/psalm-plugin-drupal",
     "description": "Psalm support for Drupal security analysis.",
     "type": "psalm-plugin",
+    "license": "LGPL-2.1-only",
     "authors": [
         {
             "name": "Sam Mortenson",
