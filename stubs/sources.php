@@ -4,7 +4,6 @@ namespace Drupal\Core\Field;
 
 interface FieldItemListInterface
 {
-
   /**
    * @psalm-taint-source input
    */
@@ -17,7 +16,6 @@ use Drupal\Core\Field\FieldItemListInterface;
 
 interface FieldableEntityInterface
 {
-
     /**
      * @return FieldItemListInterface
      */
@@ -35,7 +33,6 @@ namespace Drupal\node\Entity;
 
 class Node
 {
-
   /**
    * @psalm-taint-source input
    */
@@ -48,7 +45,6 @@ namespace Drupal\Core\Form;
 
 interface FormStateInterface
 {
-
   /**
    * @psalm-taint-source input
    *
@@ -73,7 +69,6 @@ interface FormStateInterface
 
 class FormState
 {
-
   /**
    * @psalm-taint-source input
    *
