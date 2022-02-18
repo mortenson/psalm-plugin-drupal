@@ -224,10 +224,13 @@ Feature: Psalm Plugin Drupal
       """
     When I run Psalm in Drupal
     Then I see these errors
-      | Type                   | Message                                           |
-      | TaintedHtml            | Detected tainted HTML                             |
-      | TaintedHtml            | Detected tainted HTML                             |
-      | TaintedHtml            | Detected tainted HTML                             |
+      | Type                   | Message                                                                |
+      | TaintedHtml            | Detected tainted HTML                                                  |
+      | TaintedTextWithQuotes  | Detected tainted text with possible quotes                             |
+      | TaintedHtml            | Detected tainted HTML                                                  |
+      | TaintedTextWithQuotes  | Detected tainted text with possible quotes                             |
+      | TaintedHtml            | Detected tainted HTML                                                  |
+      | TaintedTextWithQuotes  | Detected tainted text with possible quotes                             |
     And I see no other errors
     And I see exit code 2
 
@@ -241,9 +244,12 @@ Feature: Psalm Plugin Drupal
       """
     When I run Psalm in Drupal
     Then I see these errors
-      | Type                   | Message                                           |
-      | TaintedHtml            | Detected tainted HTML                             |
-      | TaintedHtml            | Detected tainted HTML                             |
-      | TaintedHtml            | Detected tainted HTML                             |
+      | Type                   | Message                                                                |
+      | TaintedHtml            | Detected tainted HTML                                                  |
+      | TaintedTextWithQuotes  | Detected tainted text with possible quotes                             |
+      | TaintedHtml            | Detected tainted HTML                                                  |
+      | TaintedTextWithQuotes  | Detected tainted text with possible quotes                             |
+      | TaintedHtml            | Detected tainted HTML                                                  |
+      | TaintedTextWithQuotes  | Detected tainted text with possible quotes                             |
     And I see no other errors
     And I see exit code 2
