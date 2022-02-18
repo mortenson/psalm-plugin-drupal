@@ -4,7 +4,6 @@ namespace Drupal\Core\Database;
 
 abstract class Connection
 {
-
     /**
      * @psalm-taint-sink sql $query
      */
@@ -24,7 +23,6 @@ namespace Drupal\Core\Database\Query;
 
 interface ConditionInterface
 {
-
     /**
      * @psalm-taint-sink sql $operator
      */
@@ -38,7 +36,6 @@ interface ConditionInterface
 
 interface SelectInterface
 {
-
     /**
      * @psalm-taint-sink sql $condition
      */
@@ -79,7 +76,6 @@ namespace Drupal\Component\Render;
 
 class FormattableMarkup
 {
-
     /**
       * @psalm-taint-sink html $string
       */
@@ -92,7 +88,6 @@ namespace Drupal\Core\StringTranslation;
 
 class TranslatableMarkup
 {
-
     /**
      * @psalm-taint-sink html $string
      */
@@ -105,7 +100,6 @@ namespace Drupal\Core\StringTranslation;
 
 class PluralTranslatableMarkup
 {
-
     /**
      * @psalm-taint-sink html $singular
      * @psalm-taint-sink html $plural
@@ -125,7 +119,6 @@ namespace Drupal\Component\Render;
 
 trait MarkupTrait
 {
-
     /**
      * @psalm-taint-sink html $string
      */
@@ -138,7 +131,6 @@ namespace Drupal\Core\Render;
 
 class Renderer
 {
-
     /**
      * @psalm-taint-sink html $elements
      */
@@ -170,7 +162,6 @@ class Renderer
 
 interface RendererInterface
 {
-
     /**
      * @psalm-taint-sink html $elements
      */

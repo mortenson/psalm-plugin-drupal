@@ -4,7 +4,6 @@ namespace Drupal\Component\Utility;
 
 class Xss
 {
-
   /**
    * @psalm-taint-escape html
    *
@@ -30,7 +29,6 @@ class Xss
 
 class Html
 {
-
     /**
      * @psalm-taint-escape html
      *
