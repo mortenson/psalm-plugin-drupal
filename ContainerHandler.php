@@ -58,7 +58,7 @@ class ContainerHandler implements AfterMethodCallAnalysisInterface
 
         $service = self::$containerMeta->get($serviceId);
         if ($service) {
-            $class = $service->getClassName();
+            $class = $service->getClass();
             if ($class) {
                 $codebase->classlikes->addFullyQualifiedClassName($class);
                 $return_type_candidate = new Union([new TNamedObject($class)]);
