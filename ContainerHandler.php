@@ -2,13 +2,10 @@
 
 namespace mortenson\PsalmPluginDrupal;
 
-use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Scalar\String_;
-use Psalm\Codebase;
-use Psalm\Context;
-use Psalm\Plugin\Hook\AfterMethodCallAnalysisInterface;
-use Psalm\StatementsSource;
+use Psalm\Plugin\EventHandler\AfterMethodCallAnalysisInterface;
+use Psalm\Plugin\EventHandler\Event\AfterMethodCallAnalysisEvent;
 use Psalm\SymfonyPsalmPlugin\Symfony\ContainerMeta;
 use Psalm\Type\Atomic\TNamedObject;
 use Psalm\Type\Union;
@@ -29,18 +26,9 @@ class ContainerHandler implements AfterMethodCallAnalysisInterface
     /**
      * {@inheritdoc}
      */
-    public static function afterMethodCallAnalysis(
-        Expr $expr,
-        string $method_id,
-        string $appearing_method_id,
-        string $declaring_method_id,
-        Context $context,
-        StatementsSource $statements_source,
-        Codebase $codebase,
-        array &$file_replacements = [],
-        Union &$return_type_candidate = null
-    ): void {
-        if (!in_array($declaring_method_id, ['Drupal::service'], true)) {
+    public static function afterMethodCallAnalysis(AfterMethodCallAnalysisEvent $event): void
+    {
+        if ($event->getMethodId() != 'Drupal::service') {
             return;
         }
 
@@ -48,6 +36,7 @@ class ContainerHandler implements AfterMethodCallAnalysisInterface
             return;
         }
 
+        $expr = $event->getExpr();
         if ($expr->args[0]->value instanceof String_) {
             $serviceId = $expr->args[0]->value->value;
         } elseif ($expr->args[0]->value instanceof ClassConstFetch) {
@@ -60,8 +49,8 @@ class ContainerHandler implements AfterMethodCallAnalysisInterface
         if ($service) {
             $class = $service->getClass();
             if ($class) {
-                $codebase->classlikes->addFullyQualifiedClassName($class);
-                $return_type_candidate = new Union([new TNamedObject($class)]);
+                $event->getCodebase()->classlikes->addFullyQualifiedClassName($class);
+                $event->setReturnTypeCandidate(new Union([new TNamedObject($class)]));
             }
         }
     }
