@@ -26,7 +26,8 @@ class ContainerHandler implements AfterMethodCallAnalysisInterface
     /**
      * {@inheritdoc}
      */
-    public static function afterMethodCallAnalysis(AfterMethodCallAnalysisEvent $event): void {
+    public static function afterMethodCallAnalysis(AfterMethodCallAnalysisEvent $event): void
+    {
         if ($event->getMethodId() != 'Drupal::service') {
             return;
         }
