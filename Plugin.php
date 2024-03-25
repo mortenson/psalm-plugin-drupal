@@ -13,14 +13,14 @@ use RecursiveIteratorIterator;
 class Plugin implements PluginEntryPointInterface
 {
     /** @return void */
-    public function __invoke(RegistrationInterface $psalm, ?SimpleXMLElement $config = null): void
+    public function __invoke(RegistrationInterface $registration, ?SimpleXMLElement $config = null): void
     {
         require_once __DIR__ . '/RenderArrayTainter.php';
         require_once __DIR__ . '/ContainerHandler.php';
-        $psalm->registerHooksFromClass(RenderArrayTainter::class);
+        $registration->registerHooksFromClass(RenderArrayTainter::class);
 
         foreach ($this->getStubFiles() as $file) {
-            $psalm->addStubFile($file);
+            $registration->addStubFile($file);
         }
 
         if (!$config) {
@@ -31,7 +31,7 @@ class Plugin implements PluginEntryPointInterface
             ContainerHandler::init(new ContainerMeta((array) $config->containerXml));
         }
 
-        $psalm->registerHooksFromClass(ContainerHandler::class);
+        $registration->registerHooksFromClass(ContainerHandler::class);
 
         // Add all .theme/.module files for now. Really messy part of core.
         $directory = new RecursiveDirectoryIterator('.');
@@ -46,7 +46,7 @@ class Plugin implements PluginEntryPointInterface
             return preg_match('/(themes|modules)\/.*(\.module|\.theme)$/', $current->getPathname());
         });
         foreach (new RecursiveIteratorIterator($files) as $file) {
-            $psalm->addStubFile($file->getPathname());
+            $registration->addStubFile($file->getPathname());
         }
     }
 
