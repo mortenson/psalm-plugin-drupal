@@ -36,6 +36,7 @@ Feature: Psalm Plugin Drupal
                 <containerXml>DrupalContainerDump.xml</containerXml>
                 <extensions>
                   <module name="node" />
+                  <module name="user" />
                 </extensions>
             </pluginClass>
         </plugins>
@@ -191,17 +192,28 @@ Feature: Psalm Plugin Drupal
 
       use Symfony\Component\HttpFoundation\Response;
       use Drupal\Core\Form\FormBase;
+      use Drupal\Core\Form\FormStateInterface;
 
       class MyForm extends FormBase {
+
+        #[\Override]
+        public function getFormId() {
+          return 'my_module_form';
+        }
 
         /**
          * @return array
          */
-        public function buildForm() {
+        #[\Override]
+        public function buildForm(array $form, FormStateInterface $form_state) {
           return [
             '#markup' => $_GET['input'],
             '#template' => $_GET['input'],
           ];
+        }
+
+        #[\Override]
+        public function submitForm(array &$form, FormStateInterface $form_state) {
         }
 
       }

@@ -67,7 +67,7 @@ interface FormStateInterface
     public function &getValue($key, $default = null);
 }
 
-class FormState
+class FormState implements FormStateInterface
 {
   /**
    * @psalm-taint-source input
