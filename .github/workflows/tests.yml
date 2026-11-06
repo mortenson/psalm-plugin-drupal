@@ -7,13 +7,20 @@ on:
 jobs:
   test:
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        include:
+          - php: '8.1'
+            psalm: '^6'
+          - php: '8.3'
+            psalm: '^7'
     steps:
     - uses: actions/checkout@v2
 
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-          php-version: '8.1'
+          php-version: ${{ matrix.php }}
           tools: composer:v2
           coverage: none
       env:
@@ -24,12 +31,10 @@ jobs:
       uses: actions/cache@v4
       with:
         path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
+        key: ${{ runner.os }}-php-${{ matrix.php }}-psalm-${{ matrix.psalm }}
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+      run: composer update --prefer-dist --no-progress --with "vimeo/psalm:${{ matrix.psalm }}"
 
     - name: Check code style
       run: composer run-script cs-check

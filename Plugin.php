@@ -3,21 +3,30 @@
 namespace mortenson\PsalmPluginDrupal;
 
 use SimpleXMLElement;
+use Psalm\Plugin\EventHandler\RemoveTaintsInterface;
 use Psalm\Plugin\RegistrationInterface;
 use Psalm\Plugin\PluginEntryPointInterface;
 use Psalm\SymfonyPsalmPlugin\Symfony\ContainerMeta;
 use RecursiveCallbackFilterIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use ReflectionMethod;
 
 class Plugin implements PluginEntryPointInterface
 {
     /** @return void */
     public function __invoke(RegistrationInterface $registration, ?SimpleXMLElement $config = null): void
     {
-        require_once __DIR__ . '/RenderArrayTainter.php';
+        require_once __DIR__ . '/RenderArray.php';
         require_once __DIR__ . '/ContainerHandler.php';
-        $registration->registerHooksFromClass(RenderArrayTainter::class);
+        // Psalm 7 returns taints from removeTaints() as an int bitmask, Psalm 6 as a list of names.
+        if ((string) (new ReflectionMethod(RemoveTaintsInterface::class, 'removeTaints'))->getReturnType() === 'int') {
+            require_once __DIR__ . '/RenderArrayTainter.php';
+            $registration->registerHooksFromClass(RenderArrayTainter::class);
+        } else {
+            require_once __DIR__ . '/Psalm6RenderArrayTainter.php';
+            $registration->registerHooksFromClass(Psalm6RenderArrayTainter::class);
+        }
 
         foreach ($this->getStubFiles() as $file) {
             $registration->addStubFile($file);

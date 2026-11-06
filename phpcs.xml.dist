@@ -7,7 +7,9 @@
     <!-- Paths to check -->
     <file>Plugin.php</file>
     <file>ContainerHandler.php</file>
+    <file>RenderArray.php</file>
     <file>RenderArrayTainter.php</file>
+    <file>Psalm6RenderArrayTainter.php</file>
     <file>scripts</file>
     <file>tests/_support</file>
     <file>stubs</file>
